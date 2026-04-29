@@ -26,29 +26,49 @@ function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(mockProduct.colors[0].name);
   const [activeTab, setActiveTab] = useState('details');
+  const [quantity, setQuantity] = useState(1);
+  const [mainImage, setMainImage] = useState(mockProduct.images[0]);
 
-  // In a real app, fetch product by id here
-  const product = mockProduct; // using mock for now
+  const product = mockProduct; 
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === 'dec' && quantity > 1) {
+      setQuantity(q => q - 1);
+    } else if (type === 'inc') {
+      setQuantity(q => q + 1);
+    }
+  };
 
   const handleAddToCart = () => {
     if (!selectedSize) {
       alert("Please select a size before adding to cart.");
       return;
     }
-    alert(`Successfully added ${product.name} (Size: ${selectedSize}, Color: ${selectedColor}) to your cart!`);
+    alert(`Successfully added ${quantity}x ${product.name} (Size: ${selectedSize}, Color: ${selectedColor}) to your cart!`);
   };
 
   return (
     <div className="product-page">
       <div className="product-page-layout">
-        <div className="product-gallery">
-          {product.images.map((img, idx) => (
-            <img key={idx} src={img} alt={`${product.name} view ${idx + 1}`} className="product-gallery-img" />
-          ))}
+        <div className="product-gallery-wrapper">
+          <div className="product-main-image">
+            <img src={mainImage} alt={product.name} />
+          </div>
+          <div className="product-thumbnails">
+            {product.images.map((img, idx) => (
+              <button 
+                key={idx} 
+                className={`thumbnail-btn ${mainImage === img ? 'active' : ''}`}
+                onClick={() => setMainImage(img)}
+              >
+                <img src={img} alt={`Thumbnail ${idx + 1}`} />
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="product-info-container">
@@ -100,9 +120,16 @@ function ProductDetails() {
               </div>
             </div>
 
-            <button className="add-to-cart-btn" onClick={handleAddToCart}>
-              ADD TO CART
-            </button>
+            <div className="product-actions-row">
+              <div className="quantity-selector">
+                <button onClick={() => handleQuantity('dec')}>-</button>
+                <span>{quantity}</span>
+                <button onClick={() => handleQuantity('inc')}>+</button>
+              </div>
+              <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                ADD TO CART
+              </button>
+            </div>
 
             <div className="product-accordion">
               <div className="accordion-item">
