@@ -131,39 +131,41 @@ function ProductDetails() {
               </button>
             </div>
 
-            <div className="product-accordion">
-              <div className="accordion-item">
-                <button 
-                  className={`accordion-header ${activeTab === 'details' ? 'active' : ''}`} 
-                  onClick={() => setActiveTab(activeTab === 'details' ? '' : 'details')}
-                >
-                  Materials & Care
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
-                </button>
-                {activeTab === 'details' && (
-                  <div className="accordion-content">
-                    <p><strong>Materials:</strong> {product.materials}</p>
-                    <p><strong>Care:</strong> {product.care}</p>
-                  </div>
-                )}
+          </div>
+        </div>
+      </div>
+
+      <div className="product-bottom-section">
+        <div className="product-accordion">
+          <div className="accordion-item">
+            <button 
+              className={`accordion-header ${activeTab === 'details' ? 'active' : ''}`} 
+              onClick={() => setActiveTab(activeTab === 'details' ? '' : 'details')}
+            >
+              Materials & Care
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            {activeTab === 'details' && (
+              <div className="accordion-content">
+                <p><strong>Materials:</strong> {product.materials}</p>
+                <p><strong>Care:</strong> {product.care}</p>
               </div>
-              
-              <div className="accordion-item">
-                <button 
-                  className={`accordion-header ${activeTab === 'shipping' ? 'active' : ''}`} 
-                  onClick={() => setActiveTab(activeTab === 'shipping' ? '' : 'shipping')}
-                >
-                  Shipping & Returns
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
-                </button>
-                {activeTab === 'shipping' && (
-                  <div className="accordion-content">
-                    <p>Free standard shipping on orders over $150. Returns accepted within 30 days of delivery with original tags attached.</p>
-                  </div>
-                )}
+            )}
+          </div>
+          
+          <div className="accordion-item">
+            <button 
+              className={`accordion-header ${activeTab === 'shipping' ? 'active' : ''}`} 
+              onClick={() => setActiveTab(activeTab === 'shipping' ? '' : 'shipping')}
+            >
+              Shipping & Returns
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            {activeTab === 'shipping' && (
+              <div className="accordion-content">
+                <p>Free standard shipping on orders over $150. Returns accepted within 30 days of delivery with original tags attached.</p>
               </div>
-            </div>
-            
+            )}
           </div>
         </div>
       </div>

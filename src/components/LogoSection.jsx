@@ -9,7 +9,11 @@ const leftLinks = [
   { label: 'Factory', to: '/factory' },
 ]
 
-const rightLinks = ['Blog', 'Wholesale', 'Contact']
+const rightLinks = [
+  { label: 'Blog', to: '/blog' },
+  { label: 'Wholesale', to: '/wholesale' },
+  { label: 'Contact', to: '/contact' }
+]
 
 const subCategories = {
   '/men': ['New Arrivals', 'T-Shirts', 'Shirts', 'Jeans', 'Trousers', 'Outerwear', 'Shoes', 'Accessories'],
@@ -23,6 +27,7 @@ function LogoSection() {
   const [expandedCategory, setExpandedCategory] = useState(null)
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
   const [hoveredCategory, setHoveredCategory] = useState(null)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const location = useLocation()
 
   const toggleCategory = (e, label) => {
@@ -35,7 +40,7 @@ function LogoSection() {
 
   return (
     <section className="logo-section" aria-label="Main navbar" onMouseLeave={() => setHoveredCategory(null)}>
-      <div className="logo-lockup">
+      <div className={`logo-lockup ${isSearchOpen ? 'search-open' : ''}`}>
         <button 
           className="hamburger-btn" 
           aria-label="Open Menu" 
@@ -67,12 +72,25 @@ function LogoSection() {
 
         <div className="brand-right">
           <nav className="brand-nav brand-nav-right" aria-label="Main navigation right">
-            {rightLinks.map((label) => (
-              <a key={label} href="#" className="brand-nav-link">
-                {label}
-              </a>
+            {rightLinks.map((link) => (
+              <NavLink 
+                key={link.label} 
+                to={link.to} 
+                className={({ isActive }) => `brand-nav-link ${isActive ? 'active' : ''}`}
+              >
+                {link.label}
+              </NavLink>
             ))}
           </nav>
+
+          <div className="search-input-wrapper">
+            <input 
+              type="text" 
+              placeholder="Search products..." 
+              className="search-input"
+              autoFocus
+            />
+          </div>
 
           <div className="language-selector-wrapper">
             <button 
@@ -95,11 +113,22 @@ function LogoSection() {
             )}
           </div>
 
-          <button type="button" className="search-button" aria-label="Search">
-            <svg viewBox="0 0 24 24" aria-hidden="true" className="search-icon">
-              <circle cx="11" cy="11" r="6.5" />
-              <path d="m16 16 4 4" />
-            </svg>
+          <button 
+            type="button" 
+            className="search-button" 
+            aria-label="Search"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+          >
+            {isSearchOpen ? (
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="close-icon" style={{ width: '24px', height: '24px' }}>
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="search-icon">
+                <circle cx="11" cy="11" r="6.5" />
+                <path d="m16 16 4 4" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
@@ -185,10 +214,15 @@ function LogoSection() {
                 )
               })}
               <div className="mobile-nav-divider"></div>
-              {rightLinks.map((label) => (
-                <a key={`mobile-${label}`} href="#" className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
-                  {label}
-                </a>
+              {rightLinks.map((link) => (
+                <NavLink 
+                  key={`mobile-${link.label}`} 
+                  to={link.to} 
+                  className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </NavLink>
               ))}
             </nav>
             <div className="mobile-menu-footer">

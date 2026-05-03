@@ -9,6 +9,10 @@ import Men from './pages/Men'
 import Women from './pages/Women'
 import Kids from './pages/Kids'
 import ProductDetails from './pages/ProductDetails'
+import Cart from './pages/Cart'
+import BlogList from './pages/BlogList'
+import BlogDetails from './pages/BlogDetails'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
             <Route path="/kids" element={<Kids />} />
             <Route path="/factory" element={<Men />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:id" element={<BlogDetails />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
